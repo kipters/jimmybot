@@ -36,6 +36,9 @@ const triggerWords = [
   "lua",
   "rust",
   "asp",
+  "mac",
+  "macos",
+  "osx"
 ];
 
 const triggers = triggerWords.map(t => {
