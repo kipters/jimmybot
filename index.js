@@ -29,7 +29,6 @@ const triggers = [
 
 app.post(`/bot/${key}`, function(req, res) {
   const update = req.body;
-  console.log(JSON.stringify(update));
   
   if (update.message === undefined || update.message.text === undefined) {
     res.sendStatus(200);
