@@ -21,7 +21,10 @@ const triggers = [
   "clojure",
   "node",
   "angular",
-  "react"
+  "react",
+  "java",
+  "npm",
+  "perl",
 ];
 
 app.post(`/bot/${key}`, function(req, res) {
