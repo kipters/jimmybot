@@ -20,14 +20,14 @@ const triggers = [
 app.post(`/bot/${key}`, function(request, response) {
   const update = request.body;
   
-  if (body.message === undefined || body.message.text === undefined) {
+  if (update.message === undefined || update.message.text === undefined) {
     response.sendStatus(200);
     return;
   }
 
-  const text = body.message.text;
-  const chatId = body.chat_id;
-  const msgId = body.message_id;
+  const text = update.message.text;
+  const chatId = update.chat_id;
+  const msgId = update.message_id;
 
   const triggered = triggers.filter(item => {
     return text.includes(item);
