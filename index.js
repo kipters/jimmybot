@@ -41,12 +41,7 @@ const triggerWords = [
   "osx"
 ];
 
-const triggers = triggerWords.map(t => {
-  return {
-    text: t,
-    regex: new RegExp(`\\b${t}\\b`)
-  };
-});
+const triggers = new RegExp(`\\b(${triggerWords.join('|')})\\b`, 'gi');
 
 const muted = [];
 
@@ -65,6 +60,12 @@ function sendMessage(chatId, message, replyTo = undefined, markdown = false) {
   }
     
   request.post(`https://api.telegram.org/bot${key}/sendMessage`, { json: msg });
+}
+
+if (process.env.NODE_ENV === 'development') {
+  sendMessage = function(chatId, message, replyTo = undefined, markdown = false) {
+    console.log(message);
+  };
 }
 
 app.post(`/bot/${key}`, function(req, res) {
@@ -97,10 +98,9 @@ app.post(`/bot/${key}`, function(req, res) {
     return;
   }
 
-  const triggered = triggers.filter(item => {
-    return item.regex.test(text);
-  }).forEach(item => {
-    sendMessage(chatId, `${item.text} merda 💩`, msgId);
+  const triggered = text.match(triggers);
+  triggered.forEach(item => {
+    sendMessage(chatId, `${item} merda 💩`, msgId);
   });
 
   res.sendStatus(200);
