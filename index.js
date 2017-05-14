@@ -77,12 +77,14 @@ app.post(`/bot/${key}`, function(req, res) {
       muted.splice(index, 1);
       sendMessage(chatId, `\`systemctl start ${lName}.service\``, undefined, true);
     }
+    res.sendStatus(200);
     return;
   }
 
   if (text == '/mute' || text == `/mute@${name}`) {
     muted.push(chatId);
     sendMessage(chatId, `\`systemctl stop ${lName}.service\``, undefined, true);
+    res.sendStatus(200);
     return;
   }
 
