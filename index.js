@@ -12,7 +12,7 @@ const key = process.env.BOT_KEY || 'hankey';
 const name = process.env.BOT_NAME || 'JimmySanBot';
 const lName = name.toLowerCase();
 
-const triggers = [
+const triggerWords = [
   "js",
   "javascript",
   "docker",
@@ -33,11 +33,17 @@ const triggers = [
   "dotnet",
   "go",
   "golang",
-  "c++",
   "lua",
   "rust",
   "asp",
 ];
+
+const triggers = triggerWords.map(t => {
+  return {
+    text: t,
+    regex: new RegExp(`\\b${t}\\b`)
+  };
+});
 
 const muted = [];
 
@@ -89,9 +95,9 @@ app.post(`/bot/${key}`, function(req, res) {
   }
 
   const triggered = triggers.filter(item => {
-    return text.includes(item);
+    return item.regex.test(text);
   }).forEach(item => {
-    sendMessage(chatId, `${item} merda 💩`, msgId);
+    sendMessage(chatId, `${item.text} merda 💩`, msgId);
   });
 
   res.sendStatus(200);
