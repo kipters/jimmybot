@@ -38,7 +38,7 @@ app.post(`/bot/${key}`, function(request, response) {
       reply_to_message_id: msgId
     };
     
-    request.post(`https://api.telegram.org/bot${botkey}/sendMessage`, { json: msg });
+    request.post(`https://api.telegram.org/bot${key}/sendMessage`, { json: msg });
   });
 
   response.sendStatus(200);
