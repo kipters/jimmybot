@@ -8,7 +8,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.json());
 
-const key = process.env.botkey;
+const key = process.env.botkey || 'hankey';
 
 const triggers = [
   "js",
@@ -27,8 +27,8 @@ app.post(`/bot/${key}`, function(req, res) {
   }
 
   const text = update.message.text;
-  const chatId = update.chat_id;
-  const msgId = update.message_id;
+  const chatId = update.message.chat.id;
+  const msgId = update.message.message_id;
 
   const triggered = triggers.filter(item => {
     return text.includes(item);
