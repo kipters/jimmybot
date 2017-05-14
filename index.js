@@ -14,7 +14,14 @@ const triggers = [
   "js",
   "javascript",
   "docker",
-  "systemd"
+  "systemd",
+  "php",
+  "python",
+  "lisp",
+  "clojure",
+  "node",
+  "angular",
+  "react"
 ];
 
 app.post(`/bot/${key}`, function(req, res) {
