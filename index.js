@@ -81,7 +81,7 @@ app.post(`/bot/${key}`, function(req, res) {
     return;
   }
 
-  if (text == '/mute' || text == `/mute@${name}`) {
+  if (text == '/mute' || text == `/mute@${lName}`) {
     muted.push(chatId);
     sendMessage(chatId, `\`systemctl stop ${lName}.service\``, undefined, true);
     res.sendStatus(200);
