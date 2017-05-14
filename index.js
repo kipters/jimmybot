@@ -33,7 +33,7 @@ app.post(`/bot/${key}`, function(req, res) {
     return;
   }
 
-  const text = update.message.text;
+  const text = update.message.text.toLowerCase();
   const chatId = update.message.chat.id;
   const msgId = update.message.message_id;
 
