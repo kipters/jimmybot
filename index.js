@@ -25,6 +25,16 @@ const triggers = [
   "java",
   "npm",
   "perl",
+  "pascal",
+  "cobol",
+  "windows",
+  "dotnet",
+  "go",
+  "golang",
+  "c++",
+  "lua",
+  "rust",
+  "asp",
 ];
 
 app.post(`/bot/${key}`, function(req, res) {
