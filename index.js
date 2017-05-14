@@ -8,7 +8,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.json());
 
-const key = process.env.botkey || 'hankey';
+const key = process.env.BOT_KEY || 'hankey';
 
 const triggers = [
   "js",
