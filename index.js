@@ -17,11 +17,11 @@ const triggers = [
   "systemd"
 ];
 
-app.post(`/bot/${key}`, function(request, response) {
-  const update = request.body;
+app.post(`/bot/${key}`, function(req, res) {
+  const update = req.body;
   
   if (update.message === undefined || update.message.text === undefined) {
-    response.sendStatus(200);
+    res.sendStatus(200);
     return;
   }
 
@@ -41,11 +41,11 @@ app.post(`/bot/${key}`, function(request, response) {
     request.post(`https://api.telegram.org/bot${key}/sendMessage`, { json: msg });
   });
 
-  response.sendStatus(200);
+  res.sendStatus(200);
 });
 
-app.get('/', function(request, response) {
-  response.sendStatus(404);
+app.get('/', function(req, res) {
+  res.sendStatus(404);
 });
 
 app.listen(app.get('port'), function() {
