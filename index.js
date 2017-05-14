@@ -9,6 +9,8 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
 const key = process.env.BOT_KEY || 'hankey';
+const name = process.env.BOT_NAME || 'JimmySanBot';
+const lName = name.toLowerCase();
 
 const triggers = [
   "js",
@@ -37,6 +39,25 @@ const triggers = [
   "asp",
 ];
 
+const muted = [];
+
+function sendMessage(chatId, message, replyTo = undefined, markdown = false) {
+  const msg = {
+    chat_id: chatId,
+    text: message
+  };
+
+  if (replyTo !== undefined) {
+    msg.reply_to_message_id = replyTo;
+  }
+
+  if (markdown) {
+    msg.parse_mode = 'markdown';
+  }
+    
+  request.post(`https://api.telegram.org/bot${key}/sendMessage`, { json: msg });
+}
+
 app.post(`/bot/${key}`, function(req, res) {
   const update = req.body;
   
@@ -49,16 +70,26 @@ app.post(`/bot/${key}`, function(req, res) {
   const chatId = update.message.chat.id;
   const msgId = update.message.message_id;
 
+  const index = muted.indexOf(chatId);
+
+  if (index !== -1) {
+    if (text == '/unmute' || text == `/unmute@${lName}`) {
+      muted.splice(index, 1);
+      sendMessage(chatId, `\`systemctl start ${lName}.service\``, undefined, true);
+    }
+    return;
+  }
+
+  if (text == '/mute' || text == `/mute@${name}`) {
+    muted.push(chatId);
+    sendMessage(chatId, `\`systemctl stop ${lName}.service\``, undefined, true);
+    return;
+  }
+
   const triggered = triggers.filter(item => {
     return text.includes(item);
   }).forEach(item => {
-    const msg = {
-      chat_id: chatId,
-      text: `${item} merda 💩`,
-      reply_to_message_id: msgId
-    };
-    
-    request.post(`https://api.telegram.org/bot${key}/sendMessage`, { json: msg });
+    sendMessage(chatId, `${item} merda 💩`, msgId);
   });
 
   res.sendStatus(200);
