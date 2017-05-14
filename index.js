@@ -10,7 +10,8 @@ app.use(bodyParser.json());
 const key = process.env.botkey;
 
 app.post(`/bot/${key}`, function(request, response) {
-  console.log(JSON.stringify(req.body));
+  console.log(JSON.stringify(request.body));
+  respo.sendStatus(200);
 });
 
 app.get('/', function(request, response) {
