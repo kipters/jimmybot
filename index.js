@@ -53,7 +53,10 @@ function formatInlineResult(text) {
     type: 'article',
     id: text,
     thumb_url: inlineThumb,
-    title: formatMessage(text)
+    title: name,
+    input_message_content: {
+      message_text: formatMessage(text)
+    }
   };
 }
 
