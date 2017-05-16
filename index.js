@@ -50,11 +50,10 @@ function formatMessage(item) {
 
 function formatInlineResult(text) {
   return {
-    type: 'photo',
+    type: 'article',
     id: text,
-    photo_url: inlineImage,
     thumb_url: inlineThumb,
-    caption: formatMessage(text)
+    title: formatMessage(text)
   };
 }
 
