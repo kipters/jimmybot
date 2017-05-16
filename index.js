@@ -108,7 +108,7 @@ app.post(`/bot/${key}`, function(req, res) {
         .slice(0, 49)
         .map(formatInlineResult);
 
-      result.push(formatInlineResult(query.query));
+      result.results.push(formatInlineResult(query.query));
     }
 
     result.method = 'answerInlineQuery';
