@@ -49,13 +49,15 @@ function formatMessage(item) {
 }
 
 function formatInlineResult(text) {
+  var formattedText = formatMessage(text);
   return {
     type: 'article',
     id: text,
     thumb_url: inlineThumb,
     title: name,
+    description: formattedText,
     input_message_content: {
-      message_text: formatMessage(text)
+      message_text: formattedText
     }
   };
 }
