@@ -139,9 +139,12 @@ app.post(`/bot/${key}`, function(req, res) {
   }
 
   const triggered = text.match(triggers);
-  triggered.forEach(item => {
-    sendMessage(chatId, formatMessage(item), msgId);
-  });
+
+  if (triggered) {
+    triggered.forEach(item => {
+      sendMessage(chatId, formatMessage(item), msgId);
+    });
+  }
 
   res.sendStatus(200);
 });
