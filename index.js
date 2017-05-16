@@ -88,6 +88,8 @@ if (process.env.NODE_ENV === 'development') {
 app.post(`/bot/${key}`, function(req, res) {
   const update = req.body;
 
+  console.log(JSON.stringify(update));
+
   if (update.inline_query) {
     const query = update.inline_query;
 
