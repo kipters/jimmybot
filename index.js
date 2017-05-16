@@ -107,6 +107,7 @@ app.post(`/bot/${key}`, function(req, res) {
         .map(formatInlineResult);
     }
 
+    result.method = 'answerInlineQuery';
     res.send(result);
     return;
   }
