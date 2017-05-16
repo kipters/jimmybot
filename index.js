@@ -10,13 +10,17 @@ app.use(bodyParser.json());
 
 const key = process.env.BOT_KEY || 'hankey';
 const name = process.env.BOT_NAME || 'JimmySanBot';
+const inlineImage = process.env.INLINE_IMAGE || 'poo.jpg';
+const inlineThumb = process.env.INLINE_THUMB || 'poo_thumb.jpg';
 const lName = name.toLowerCase();
 
 const triggerWords = [
-  "js",
   "javascript",
   "docker",
   "systemd",
+  "wordpress",
+  "java",
+  "js",
   "php",
   "python",
   "lisp",
@@ -24,7 +28,6 @@ const triggerWords = [
   "node",
   "angular",
   "react",
-  "java",
   "npm",
   "perl",
   "pascal",
@@ -40,6 +43,20 @@ const triggerWords = [
   "macos",
   "osx"
 ];
+
+function formatMessage(item) {
+  return `${item} merda 💩`;
+}
+
+function formatInlineResult(text) {
+  return {
+    type: 'photo',
+    id: text,
+    photo_url: inlineImage,
+    thumb_url: inlineThumb,
+    caption: formatMessage(text)
+  };
+}
 
 const triggers = new RegExp(`\\b(${triggerWords.join('|')})\\b`, 'gi');
 
@@ -70,6 +87,27 @@ if (process.env.NODE_ENV === 'development') {
 
 app.post(`/bot/${key}`, function(req, res) {
   const update = req.body;
+
+  if (update.inline_query) {
+    const query = update.inline_query;
+
+    const result = {
+      inline_query_id: query.id,
+      next_offset: ""
+    };
+
+    if (query.query === undefined || query.query === "") {
+      result.results = triggerWords.slice(0, 50).map(formatInlineResult)
+    } else {
+      result.results = triggerWords
+        .filter(i => i.includes(query.query))
+        .slice(0, 50)
+        .map(formatInlineResult);
+    }
+
+    res.send(result);
+    return;
+  }
   
   if (update.message === undefined || update.message.text === undefined) {
     res.sendStatus(200);
@@ -100,7 +138,7 @@ app.post(`/bot/${key}`, function(req, res) {
 
   const triggered = text.match(triggers);
   triggered.forEach(item => {
-    sendMessage(chatId, `${item} merda 💩`, msgId);
+    sendMessage(chatId, formatMessage(item), msgId);
   });
 
   res.sendStatus(200);
