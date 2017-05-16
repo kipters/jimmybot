@@ -105,8 +105,10 @@ app.post(`/bot/${key}`, function(req, res) {
     } else {
       result.results = triggerWords
         .filter(i => i.includes(query.query))
-        .slice(0, 50)
+        .slice(0, 49)
         .map(formatInlineResult);
+
+      result.push(formatInlineResult(query.query));
     }
 
     result.method = 'answerInlineQuery';
