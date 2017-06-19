@@ -143,6 +143,15 @@ app.post(`/bot/${key}`, function(req, res) {
     return;
   }
 
+  if (text == '/start' || text == `/start@${lName}`) {
+    sendMessage(chatId, 'This bot replaces [gionniboy](https://github.com/gionniboy) ' +
+      'in every conversation you add it to! It was written 100% in JavaScript on a Mac, just for extra fun.\n' +
+      'You can even use it inline!\n\nSource code [here](https://github.com/kipters/jimmybot), submit a PR if you want!',
+      chatId, true);
+      res.sendStatus(200);
+      return;
+  }
+
   const triggered = text.match(triggers);
 
   if (triggered) {
