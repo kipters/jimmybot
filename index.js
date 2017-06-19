@@ -147,7 +147,7 @@ app.post(`/bot/${key}`, function(req, res) {
     sendMessage(chatId, 'This bot replaces [gionniboy](https://github.com/gionniboy) ' +
       'in every conversation you add it to! It was written 100% in JavaScript on a Mac, just for extra fun.\n' +
       'You can even use it inline!\n\nSource code [here](https://github.com/kipters/jimmybot), submit a PR if you want!',
-      chatId, true);
+      undefined, true);
       res.sendStatus(200);
       return;
   }
