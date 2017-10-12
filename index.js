@@ -41,7 +41,14 @@ const triggerWords = [
   "asp",
   "mac",
   "macos",
-  "osx"
+  "osx",
+  "chrome",
+  "safari",
+  "ie",
+  "opera",
+  "dolphin",
+  "konqueror",
+  "chromium"
 ];
 
 function formatMessage(item) {
