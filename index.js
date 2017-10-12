@@ -48,7 +48,8 @@ const triggerWords = [
   "opera",
   "dolphin",
   "konqueror",
-  "chromium"
+  "chromium",
+  "vivaldi"
 ];
 
 function formatMessage(item) {
