@@ -49,7 +49,8 @@ const triggerWords = [
   "dolphin",
   "konqueror",
   "chromium",
-  "vivaldi"
+  "vivaldi",
+  "sony"
 ];
 
 function formatMessage(item) {
