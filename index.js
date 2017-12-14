@@ -15,46 +15,102 @@ const inlineThumb = process.env.INLINE_THUMB || 'poo_thumb.jpg';
 const lName = name.toLowerCase();
 
 const triggerWords = [
-  "javascript",
-  "docker",
-  "systemd",
-  "wordpress",
-  "java",
-  "js",
-  "php",
-  "python",
-  "lisp",
-  "clojure",
-  "node",
-  "angular",
-  "react",
-  "npm",
-  "perl",
-  "pascal",
-  "cobol",
-  "windows",
-  "dotnet",
-  "go",
-  "golang",
-  "lua",
-  "rust",
-  "asp",
-  "mac",
-  "macos",
-  "osx",
-  "chrome",
-  "safari",
-  "ie",
-  "opera",
-  "dolphin",
-  "konqueror",
-  "chromium",
-  "vivaldi",
-  "sony"
+    "amqp",
+    "angular",
+    "angular-js",
+    "apache",
+    "apt",
+    "arancini",
+    "arancino",
+    "asp",
+    "asp.net",
+    "atom",
+    "cassandra",
+    "centos",
+    "chrome",
+    "chromium",
+    "clojure",
+    "cobol",
+    "dev c++",
+    "dnf",
+    "docker",
+    "dolphin",
+    "dotnet",
+    "drupal",
+    "dynanodb",
+    "ebay",
+    "elasticsearch",
+    "github",
+    "go",
+    "golang",
+    "ie",
+    "java",
+    "javascript",
+    "js",
+    "konqueror",
+    "laravel",
+    "libreoffice",
+    "linux",
+    "lisp",
+    "lua",
+    "mac",
+    "macos",
+    "markdown",
+    "mbp",
+    "mint",
+    "mongodb",
+    "mysql",
+    "netscape",
+    "node",
+    "npm",
+    "openoffice",
+    "opera",
+    "oracle",
+    "osx",
+    "pascal",
+    "perl",
+    "php",
+    "plsql",
+    "postgres",
+    "python",
+    "rabbitmq",
+    "react",
+    "redis",
+    "rust",
+    "safari",
+    "scala",
+    "scrum",
+    "sgi",
+    "slackware",
+    "smb",
+    "sony",
+    "spring",
+    "subito.it",
+    "systemd",
+    "tdd",
+    "turbo pascal",
+    "typescript",
+    "vistual studio code",
+    "vivaldi",
+    "webkit",
+    "windows",
+    "wordpress",
+    "yum",
+    "zfs"
 ];
 
 function formatMessage(item) {
-  return `${item} merda 💩`;
+    var turpiloquio = [
+	`${item} merda 💩`,
+	`${item}? Madonna che schifo`,
+	`${item} è una cagata pazzesca!`,
+	`${item}? Non penso proprio sia la tua migliore scelta`,
+	`Poche cose al mondo mi fanno schifo come ${item}`,
+	`NO COMPARE!! PROPRIO ${item} NOO`,
+	`Fanculo ${item}!`
+    ];
+
+    return turpiloquio[Math.floor(Math.random() * turpiloquio.length)];
 }
 
 function formatInlineResult(text) {
@@ -88,7 +144,7 @@ function sendMessage(chatId, message, replyTo = undefined, markdown = false) {
   if (markdown) {
     msg.parse_mode = 'markdown';
   }
-    
+
   request.post(`https://api.telegram.org/bot${key}/sendMessage`, { json: msg });
 }
 
@@ -124,7 +180,7 @@ app.post(`/bot/${key}`, function(req, res) {
     res.send(result);
     return;
   }
-  
+
   if (update.message === undefined || update.message.text === undefined) {
     res.sendStatus(200);
     return;
