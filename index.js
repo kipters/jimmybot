@@ -50,7 +50,8 @@ const triggerWords = [
   "konqueror",
   "chromium",
   "vivaldi",
-  "sony"
+  "sony",
+  "ubuntu"
 ];
 
 function formatMessage(item) {
@@ -88,7 +89,7 @@ function sendMessage(chatId, message, replyTo = undefined, markdown = false) {
   if (markdown) {
     msg.parse_mode = 'markdown';
   }
-    
+
   request.post(`https://api.telegram.org/bot${key}/sendMessage`, { json: msg });
 }
 
@@ -124,7 +125,7 @@ app.post(`/bot/${key}`, function(req, res) {
     res.send(result);
     return;
   }
-  
+
   if (update.message === undefined || update.message.text === undefined) {
     res.sendStatus(200);
     return;
