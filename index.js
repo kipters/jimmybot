@@ -29,6 +29,7 @@ const triggerWords = [
   "angular",
   "react",
   "npm",
+  "yarn",
   "perl",
   "pascal",
   "cobol",
@@ -39,6 +40,7 @@ const triggerWords = [
   "lua",
   "rust",
   "asp",
+  "apple",
   "mac",
   "macos",
   "osx",
@@ -51,7 +53,11 @@ const triggerWords = [
   "chromium",
   "vivaldi",
   "sony",
-  "ubuntu"
+  "ubuntu",
+  "debian",
+  "oracle",
+  "kotlin",
+  "firefox"
 ];
 
 function formatMessage(item) {
@@ -90,16 +96,18 @@ function sendMessage(chatId, message, replyTo = undefined, markdown = false) {
     msg.parse_mode = 'markdown';
   }
 
-  request.post(`https://api.telegram.org/bot${key}/sendMessage`, { json: msg });
+  request.post(`https://api.telegram.org/bot${key}/sendMessage`, {
+    json: msg
+  });
 }
 
 if (process.env.NODE_ENV === 'development') {
-  sendMessage = function(chatId, message, replyTo = undefined, markdown = false) {
+  sendMessage = function (chatId, message, replyTo = undefined, markdown = false) {
     console.log(message);
   };
 }
 
-app.post(`/bot/${key}`, function(req, res) {
+app.post(`/bot/${key}`, function (req, res) {
   const update = req.body;
 
   if (update.inline_query) {
@@ -158,8 +166,8 @@ app.post(`/bot/${key}`, function(req, res) {
       'in every conversation you add it to! It was written 100% in JavaScript on a Mac, just for extra fun.\n' +
       'You can even use it inline!\n\nSource code [here](https://github.com/kipters/jimmybot), submit a PR if you want!',
       undefined, true);
-      res.sendStatus(200);
-      return;
+    res.sendStatus(200);
+    return;
   }
 
   const triggered = text.match(triggers);
@@ -173,10 +181,10 @@ app.post(`/bot/${key}`, function(req, res) {
   res.sendStatus(200);
 });
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.sendStatus(404);
 });
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function () {
   console.log("Node app is running at localhost:" + app.get('port'))
 });
