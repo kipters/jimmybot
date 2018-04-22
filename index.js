@@ -134,14 +134,16 @@ app.post(`/bot/${key}`, function (req, res) {
     return;
   }
 
-  if (update.message === undefined || update.message.text === undefined) {
+  const message = update.message || update.edited_message;
+
+  if (message === undefined || message.text === undefined) {
     res.sendStatus(200);
     return;
   }
 
-  const text = update.message.text.toLowerCase();
-  const chatId = update.message.chat.id;
-  const msgId = update.message.message_id;
+  const text = message.text.toLowerCase();
+  const chatId = message.chat.id;
+  const msgId = message.message_id;
 
   const index = muted.indexOf(chatId);
 
