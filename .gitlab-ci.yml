@@ -5,6 +5,7 @@ stages:
 build:
   image: microsoft/dotnet:latest
   stage: build
+  before_script:
   - 'dotnet restore'
   script:
   - 'dotnet publish --runtime ubuntu-arm64 --configuration Release --output ../dist/arm64/'
