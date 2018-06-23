@@ -1,0 +1,16 @@
+stages:
+  - build
+  #- deploy
+
+build:
+  image: microsoft/dotnet:latest
+  stage: build
+  - 'dotnet restore'
+  script:
+  - 'dotnet publish --runtime ubuntu-arm64 --configuration Release --output ../dist/arm64/'
+  - 'dotnet publish --runtime ubuntu-x64 --configuration Release --output ../dist/x64/'
+  only:
+  - vb-strikes-back
+  artifacts:
+    paths:
+    - dist/
