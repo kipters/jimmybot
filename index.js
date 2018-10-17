@@ -176,7 +176,9 @@ app.post(`/bot/${key}`, function (req, res) {
 
   if (triggered) {
     triggered.forEach(item => {
-      sendMessage(chatId, formatMessage(item), msgId);
+        if (Math.random() >= 0.5) {
+          sendMessage(chatId, formatMessage(item), msgId);
+        }
     });
   }
 
