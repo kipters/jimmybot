@@ -148,7 +148,7 @@ app.post(`/bot/${key}`, function (req, res) {
   const index = muted.indexOf(chatId);
 
   if (index !== -1) {
-    if (text == '/unmute' || text == `/unmute@${lName}`) {
+    if (text === '/unmute' || text === `/unmute@${lName}` || message.text === `Start-Service -Name ${name}`) {
       muted.splice(index, 1);
       sendMessage(chatId, `\`systemctl start ${lName}.service\``, undefined, true);
     }
@@ -156,14 +156,14 @@ app.post(`/bot/${key}`, function (req, res) {
     return;
   }
 
-  if (text == '/mute' || text == `/mute@${lName}`) {
+  if (text === '/mute' || text === `/mute@${lName}` || message.text === `Stop-Service -Name ${name}`) {
     muted.push(chatId);
     sendMessage(chatId, `\`systemctl stop ${lName}.service\``, undefined, true);
     res.sendStatus(200);
     return;
   }
 
-  if (text == '/start' || text == `/start@${lName}`) {
+  if (text === '/start' || text === `/start@${lName}`) {
     sendMessage(chatId, 'This bot replaces [gionniboy](https://github.com/gionniboy) ' +
       'in every conversation you add it to! It was written 100% in JavaScript on a Mac, just for extra fun.\n' +
       'You can even use it inline!\n\nSource code [here](https://github.com/kipters/jimmybot), submit a PR if you want!',
