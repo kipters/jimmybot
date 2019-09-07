@@ -57,7 +57,8 @@ const triggerWords = [
   "debian",
   "oracle",
   "kotlin",
-  "firefox"
+  "firefox",
+  "mysql"
 ];
 
 function formatMessage(item) {
