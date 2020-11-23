@@ -58,7 +58,12 @@ const triggerWords = [
   "oracle",
   "kotlin",
   "firefox",
-  "mysql"
+  "mysql",
+  "adobe",
+  "dart",
+  "flutter",
+  "xamarin",
+  "blackmagic"
 ];
 
 function formatMessage(item) {
